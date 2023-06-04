@@ -33,13 +33,13 @@ const userSchema = new mongoose.Schema({
 
 
 
-//Task schema here
-const taskSchema = new mongoose.Schema({
-task:String,
-emailid:String
-  
+
+const mydaySchema = new mongoose.Schema({
+    task:String,
+    emailid:String
+    
 });
-const Task = mongoose.model('Task',taskSchema);
+  const Myday = mongoose.model('Myday',mydaySchema);
 
 
 //Login router here
@@ -65,7 +65,7 @@ else{
   if(match.emailid===emailid){
     if(match.password==password){
     
-      res.render("task",{match})
+      res.render("todo",{match})
     
     
     }
@@ -162,25 +162,41 @@ res.render("signup",{emailerror})
 })
 
 
-app.get("/task",async(req,res)=>{
+app.get("/todo",(req,res)=>{
 
-res.render("task")
+res.render("todo")
 
 
 })
-app.post("/task",async(req,res)=>{
-const emailid=req.body.emailid
-const found=await User.findOne(emailid)
-  const task=new Task({
-  task:req.body.task,
-  emailid:found.emailid
+app.get("/myday",async(req,res)=>{
+const params={}
+res.render("myday")
 
 
-  })
-  await task.save()
-  res.render("task")
+})
+app.post("/myday",async(req,res)=>{
+  const emailid=req.body.found
+  const found=await User.findOne(emailid)
+  console.log(found)
+//   const emailid2=await 
+//   console.log(found)
+// const myday=new Myday({
+//   task:req.body.task,
+//  emailid:found.emailid
   
-  })
+//   })
+// await myday.save()
+// res.render("index")
+// console.log(myday)
+// res.send("successful")
+
+
+})
+
+
+
+
+
 
 app.listen(port,(req,res)=>{
 
